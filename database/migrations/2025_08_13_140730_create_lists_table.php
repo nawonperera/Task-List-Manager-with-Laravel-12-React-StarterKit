@@ -14,7 +14,11 @@ return new class extends Migration
         Schema::create('lists', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->text('description');
+            $table->string('description')->nullable();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade'); 
+            // constrained() means that the user_id references the id column on the users table
+            // onDelete('cascade') means that if the user is deleted, all their lists will also be deleted
+            // cascade word means that the deletion will cascade down to related records
             $table->timestamps();
         });
     }
